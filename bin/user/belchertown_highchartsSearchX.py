@@ -74,6 +74,8 @@ class highchartsDay(SearchList):
         
         # Get our temperature vector
         (time_start_vt, time_stop_vt, outTemp_vt) = db_lookup().getSqlVectors(TimeSpan(_start_ts, _end_ts), 'outTemp')
+        # Convert the temperature vector
+        outTemp_vt = self.generator.converter.convert(outTemp_vt)
         usageRound = int(self.generator.skin_dict['Units']['StringFormats'].get(outTemp_vt[2], "1f")[-2])
         outTempRound_vt =  [roundNone(x, usageRound) for x in outTemp_vt[0]]
         time_ms =  [float(x) * 1000 for x in time_stop_vt[0]]
